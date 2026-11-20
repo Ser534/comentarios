@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Transversal Comentarios & Dashboard Admin | Ecosistema 534</title>
+    <meta name="description" content="Servicio centralizado desacoplado para comentarios, valoraciones y preguntas con Web Component nativo y Dashboard de Moderación Admin.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+    <!-- Carga del Web Component Lego -->
+    <script src="/lego-comments.js"></script>
+</head>
+<body>
+
+    <!-- Panel Personalizador de Temas Globales 534 -->
+    <aside class="theme-panel" id="themePanel">
+        <button class="theme-toggle-btn" id="themeToggleBtn" title="Personalizar Tema CSS">🎨 Tema 534</button>
+        <div class="theme-panel-content">
+            <h3>🎨 Personalizador de Tema 534</h3>
+            <p style="font-size:0.8rem; color:var(--lego-text-muted);">Ajusta los Tokens CSS y observa cómo cambia todo el ecosistema y los Web Components en tiempo real.</p>
+            
+            <div class="theme-group">
+                <label>Presets de Tema:</label>
+                <div class="theme-preset-grid">
+                    <button class="preset-btn active" data-preset="dark">🌙 Dark Glass</button>
+                    <button class="preset-btn" data-preset="light">☀️ Light Clean</button>
+                    <button class="preset-btn" data-preset="cyberpunk">🟣 Neon Cyber</button>
+                    <button class="preset-btn" data-preset="emerald">🟢 Emerald</button>
+                </div>
+            </div>
+
+            <div class="theme-group">
+                <label for="primaryColorPicker">Color Primario (Acento):</label>
+                <input type="color" id="primaryColorPicker" value="#6366f1">
+            </div>
+
+            <div class="theme-group">
+                <label for="radiusRange">Redondeo de Bordes (Border Radius): <span id="radiusVal">16px</span></label>
+                <input type="range" id="radiusRange" min="0" max="32" value="16">
+            </div>
+
+            <div class="theme-group">
+                <label for="glassOpacityRange">Opacidad Glassmorphism: <span id="opacityVal">0.75</span></label>
+                <input type="range" id="glassOpacityRange" min="10" max="100" value="75">
+            </div>
+        </div>
+    </aside>
+
+    <div class="container">
+        <!-- Header Principal -->
+        <header class="header">
+            <span class="badge-tag">Módulo Lego Ecosistema 534</span>
+            <h1>Web Component & Dashboard de Moderación</h1>
+            <p>Servicio transversal desacoplado. Consume la API REST, incrusta <code>&lt;lego-comments&gt;</code> o administra la reputación desde el Panel Central.</p>
+            
+            <!-- Switcher de Vistas: Cliente Componentes vs Dashboard Admin -->
+            <div class="view-switcher" style="display:flex; justify-content:center; gap:0.5rem; margin-top:1.25rem;">
+                <button id="view-components-btn" class="btn-view active" onclick="switchMainView('components')">🧩 Vista Web Components (Cliente)</button>
+                <button id="view-admin-btn" class="btn-view" onclick="switchMainView('admin')">🛡️ Panel Moderación Admin (Ecosistema 534)</button>
+            </div>
+        </header>
+
+        <!-- VISTA 1: DEMO COMPONENTES CLIENTE -->
+        <main id="main-view-components" class="main-view active">
+            <!-- Selector de Modos y Entidades -->
+            <div class="mode-tabs" id="modeTabs">
+                <button class="tab-btn active" data-app="mapa" data-type="property" data-id="1" data-mode="review">
+                    ⭐ Propiedad #1 - Reseñas y Estrellas
+                </button>
+                <button class="tab-btn" data-app="mapa" data-type="property" data-id="1" data-mode="question">
+                    💬 Propiedad #1 - Preguntas (MercadoLibre Style)
+                </button>
+                <button class="tab-btn" data-app="mapa" data-type="platform" data-id="general" data-mode="feedback">
+                    💡 Plataforma 534 - Feedback al Dev
+                </button>
+            </div>
+
+            <!-- Renderizador del Web Component Lego -->
+            <section class="component-demo-area">
+                <div class="demo-badge-info">
+                    Incrustado usando: 
+                    <code id="codeSnippet">&lt;lego-comments app-name="mapa" entity-type="property" entity-id="1" mode="review"&gt;&lt;/lego-comments&gt;</code>
+                </div>
+                
+                <div id="webComponentContainer">
+                    <lego-comments id="legoComponentInstance" app-name="mapa" entity-type="property" entity-id="1" mode="review"></lego-comments>
+                </div>
+            </section>
+        </main>
+
+        <!-- VISTA 2: DASHBOARD DE MODERACIÓN ADMIN ECOSISTEMA 534 -->
+        <main id="main-view-admin" class="main-view" style="display: none;">
+            <div class="admin-dashboard-grid">
+                
+                <!-- Tarjetas de Métricas Globales -->
+                <div class="metrics-row">
+                    <div class="metric-card">
+                        <div class="metric-num" id="admin-total-reviews">0</div>
+                        <div class="metric-label">Reseñas Registradas</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-num" id="admin-avg-rating">0.0 ★</div>
+                        <div class="metric-label">Promedio Global Estrellas</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-num" id="admin-pending-feedback">0</div>
+                        <div class="metric-label">Feedback Dev Pendiente</div>
+                    </div>
+                </div>
+
+                <!-- Buzón de Feedback al Dev / Inquietudes -->
+                <section class="admin-section">
+                    <div class="admin-section-header">
+                        <h2>💡 Buzón de Sugerencias & Feedback de Usuarios</h2>
+                        <span class="badge-tag">Moderación Ecosistema</span>
+                    </div>
+                    <div id="admin-feedback-list" class="admin-tickets-list">
+                        <!-- Carga dinámica -->
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+</html>
